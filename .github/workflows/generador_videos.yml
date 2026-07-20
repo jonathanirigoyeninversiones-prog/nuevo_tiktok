@@ -16,14 +16,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip'
 
-      - name: Instalar dependencias
+      - name: Crear entorno virtual e instalar dependencias
         run: |
+          python -m venv venv
+          source venv/bin/activate
           python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          pip install -r requirements.txt
 
       - name: Ejecutar script del profesor
         run: |
+          source venv/bin/activate
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           python src/profesor.py
