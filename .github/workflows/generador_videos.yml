@@ -1,10 +1,9 @@
-
 name: Generador de Videos Automatizado
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 8 * * *' # Se ejecuta diariamente a las 08:00 UTC (ajusta según necesites)
+    - cron: '0 8 * * *'
 
 jobs:
   construir-y-ejecutar:
@@ -22,8 +21,9 @@ jobs:
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          python -m pip install -r requirements.txt
 
       - name: Ejecutar script del profesor
         run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           python src/profesor.py
