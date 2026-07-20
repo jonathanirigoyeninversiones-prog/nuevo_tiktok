@@ -34,6 +34,10 @@ def obtener_tema(parametro_usuario="aleatorio"):
 
 def buscar_imagen_pexels(query, api_key):
     """Busca una imagen en Pexels usando la API y devuelve la URL."""
+    if not api_key:
+        print("Error: La API Key de Pexels no está configurada.")
+        return None
+        
     headers = {"Authorization": api_key}
     url = f"https://api.pexels.com/v1/search?query={query}&per_page=1"
     try:
@@ -69,8 +73,8 @@ def generar_guion_video(tema):
 def iniciar_proceso():
     print("Iniciando el generador de videos - Módulo Profesor...")
     
-    # Obtenemos la API Key de Pexels desde los secrets de GitHub o entorno local
-    pexels_api_key = os.getenv("PEXELS_API_KEY", "TU_API_KEY_POR_DEFECTO")
+    # Obtenemos la clave de forma segura desde las variables de entorno de GitHub
+    pexels_api_key = os.getenv("PEXELS_API_KEY")
     
     # Producción de 5 videos por día (Total 35 semanales simulados en la ejecución)
     videos_por_dia = 5
